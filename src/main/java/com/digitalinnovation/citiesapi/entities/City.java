@@ -12,7 +12,6 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 import org.springframework.data.geo.Point;
 
-
 @Entity
 @Table(name = "cidade")
 @Data
@@ -37,4 +36,5 @@ public class City {
   @Type(type = "point")
   @Column(name = "lat_lon", updatable = false, insertable = false)
   private Point location;
+
   }

@@ -1,16 +1,13 @@
 package com.digitalinnovation.citiesapi.controllers;
 
 
-import java.util.List;
-import java.util.Optional;
-
 import com.digitalinnovation.citiesapi.entities.City;
 import com.digitalinnovation.citiesapi.entities.Country;
 import com.digitalinnovation.citiesapi.entities.State;
 import com.digitalinnovation.citiesapi.repositories.CityRepository;
 import com.digitalinnovation.citiesapi.repositories.CountryRepository;
 import com.digitalinnovation.citiesapi.repositories.StateRepository;
-import com.digitalinnovation.citiesapi.services.DistanceService;
+import com.digitalinnovation.citiesapi.services.CitiesService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,31 +23,36 @@ public class CitiesController {
   private final CountryRepository repositoryCountry;
   private final StateRepository repositoryState;
   private final CityRepository repositoryCity;
-  private final DistanceService service;
+  private final CitiesService service;
 
   @GetMapping("/countries")
   public Page<Country> countries(Pageable page) {
-    return repositoryCountry.findAll(page);
+    return service.findAllCoutries(page);
   }
 
   @GetMapping("/countries/{id}")
   public ResponseEntity oneCoutry(@PathVariable Long id) {
-    Optional<Country> optional = repositoryCountry.findById(id);
-
-    if (optional.isPresent())
-      return ResponseEntity.ok().body(optional.get());
-    else
-      return ResponseEntity.notFound().build();
+   return  service.findCountryById(id);
   }
 
   @GetMapping("/states")
-  public List<State> staties() {
-    return repositoryState.findAll();
+  public Page<State> staties(Pageable page) {
+    return service.findAllStates(page);
+  }
+
+  @GetMapping("/states/{id}")
+  public ResponseEntity oneState(@PathVariable Long id) {
+    return service.findStateById(id);
   }
 
   @GetMapping("/cities")
   public Page<City> cities(final Pageable page) {
-    return repositoryCity.findAll(page);
+    return service.findAllCities(page);
+  }
+
+  @GetMapping("/cities/{id}")
+  public ResponseEntity oneCity(@PathVariable Long id) {
+    return service.findCityById(id);
   }
 
   @GetMapping("/by-points")
