@@ -1,6 +1,5 @@
 package com.digitalinnovation.citiesapi.controllers;
 
-
 import com.digitalinnovation.citiesapi.entities.City;
 import com.digitalinnovation.citiesapi.entities.Country;
 import com.digitalinnovation.citiesapi.entities.State;
